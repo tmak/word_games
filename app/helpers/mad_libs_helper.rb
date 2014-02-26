@@ -1,0 +1,2 @@
+module MadLibsHelper
+end
