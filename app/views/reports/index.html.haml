@@ -1,0 +1,15 @@
+.row
+  %form.form-horizontal
+    - @usage.each do |field_name, count|
+      .form-group
+        %label.col-sm-2.control-label= "#{field_name.capitalize.pluralize}:"
+        .col-sm-10
+          %p.form-control-static= count
+
+.row
+  %form.form-horizontal
+    - @answers.each do |text, count|
+      .form-group
+        %label.col-sm-2.control-label= "#{text}:"
+        .col-sm-10
+          %p.form-control-static= count

@@ -3,5 +3,7 @@ Madlibs::Application.routes.draw do
 
   resources :solutions, only: [:create, :show]
 
+  get '/reports', to: 'reports#index'
+
   root :to => 'mad_libs#new'
 end

@@ -6,17 +6,17 @@ class Solution < ActiveRecord::Base
   def fill_field(field, options)
     field = Field.from_label(field) if field.is_a?(String)
     text = options.fetch(:with)
-    answers.create(field_name: field.name, field_index: field.index, text: text)
+    Answer.from_field(field, solution_id: id, text: text).save!
   end
 
   def resolve
     mad_lib.resolve do |field|
-      answer = answers.where(field_name: field.name, field_index: field.index).first
+      answer = answers.where(field_type: field.type, field_description: field.description, field_index: field.index).first
 
       if answer
         answer.text
       else
-        ""
+        "{#{field.name}}"
       end
     end
   end

@@ -53,15 +53,14 @@ class MadLib < ActiveRecord::Base
     @text_parts = []
     @fields = []
     @field_counts = {}
-    field_index = 0
 
     text.split(/(\{[\w,\- ]+\})/).each do |item|
       if item.start_with?("{") && item.end_with?("}")
-        field_index += 1
-        field_name = item[1..-2]
-        @field_counts[field_name] = 0 unless @field_counts.has_key?(field_name)
-        @field_counts[field_name] += 1
-        @fields << Field.new(@fields.length, field_name, @field_counts[field_name])
+        field = Field.from_name(item[1..-2], id: @fields.length)
+        @field_counts[field.name] = 0 unless @field_counts.has_key?(field.name)
+        @field_counts[field.name] += 1
+        field.index = @field_counts[field.name]
+        @fields << field
       else
         @text_parts << item
       end

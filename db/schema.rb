@@ -11,15 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140602162558) do
+ActiveRecord::Schema.define(:version => 20140603113444) do
 
   create_table "answers", :force => true do |t|
-    t.integer  "solution_id",                :null => false
-    t.string   "field_name",                 :null => false
-    t.integer  "field_index", :default => 1, :null => false
-    t.string   "text",                       :null => false
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.integer  "solution_id",                      :null => false
+    t.integer  "field_index",       :default => 1, :null => false
+    t.string   "text",                             :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.string   "field_type"
+    t.string   "field_description"
   end
 
   create_table "mad_libs", :force => true do |t|
