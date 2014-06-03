@@ -12,3 +12,17 @@
  *= require_tree .
  */
 
+@import "twitter/bootstrap";
+
+body {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+#notice_container {
+  height: 100px;
+
+  #notice {
+    display: none;
+  }
+}

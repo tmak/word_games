@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe MadLib do
   describe "#resolve" do
-    it "yields each field placeholder with name and index" do
+    it "yields each field" do
       mad_lib = FactoryGirl.build(:mad_lib, text: "{field} - That's a {field, ending in -ing} - {field}")
 
-      expect {|probe| mad_lib.resolve(&probe) }.to yield_successive_args(["field", 1], ["field, ending in -ing", 1], ["field", 2])
+      expect {|probe| mad_lib.resolve(&probe) }.to yield_successive_args(Field.new(0, "field", 1), Field.new(1, "field, ending in -ing", 1), Field.new(2, "field", 2))
     end
 
     it "replaces the field placeholders with the yielded answers" do

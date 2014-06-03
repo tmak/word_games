@@ -1,0 +1,17 @@
+.row
+  %form.form-horizontal
+    .form-group
+      %label.col-sm-2.control-label Template:
+      .col-sm-10
+        %p.form-control-static= @solution.mad_lib.text
+
+    - @solution.answers.each do |answer|
+      .form-group
+        %label.col-sm-2.control-label= "#{answer.field_label}:"
+        .col-sm-10
+          %p.form-control-static= answer.text
+
+    .form-group
+      %label.col-sm-2.control-label Result:
+      .col-sm-10
+        %p.form-control-static= @solution.resolve

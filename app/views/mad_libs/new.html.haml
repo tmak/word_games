@@ -1,0 +1,11 @@
+.row
+  = form_for @mad_lib, url: mad_libs_path, remote: true, html: { :class => "form-horizontal", :"data-type" => "json"} do |f|
+    .form-group{:class => @mad_lib.errors.include?(:text) ? "has-error" : ""}
+      = f.label :text, "Template:", class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.text_area :text, rows: 10, class: "form-control"
+        - if @mad_lib.errors.include?(:text)
+          %span.help-block= @mad_lib.errors[:text][0]
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        = f.submit "Create", class: "btn btn-default"

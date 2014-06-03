@@ -57,6 +57,7 @@ end
 group :test do
   gem 'rspec-given'
   gem 'capybara'
+  gem 'poltergeist'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'guard-rspec'

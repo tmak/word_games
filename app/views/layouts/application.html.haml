@@ -7,5 +7,7 @@
     = csrf_meta_tags
   %body
     .container
+      = render "application/notice", {notice: flash[:notice]} if flash[:notice]
+      = yield
 
     = javascript_include_tag "application"

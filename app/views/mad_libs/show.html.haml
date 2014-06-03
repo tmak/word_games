@@ -1,0 +1,18 @@
+.row
+  = form_for @solution, url: solutions_path, html: { class: "form-horizontal" } do |f|
+    = hidden_field_tag "solution[mad_lib_id]", @mad_lib.id
+
+    .form-group
+      = f.label :text, "Template:", class: "col-sm-2 control-label"
+      .col-sm-10
+        %p.form-control-static= @mad_lib.text
+
+    - @mad_lib.fields.each do |field|
+      .form-group.form-group-field
+        = label_tag "solution[answers][#{field.id}]", "#{field.label}:", class: "col-sm-2 control-label"
+        .col-sm-10
+          = text_field_tag "solution[answers][#{field.id}]", "", class: "form-control"
+
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        = f.submit "Fill In", class: "btn btn-default"

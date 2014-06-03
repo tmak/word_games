@@ -5,6 +5,8 @@ class MadLib < ActiveRecord::Base
 
   has_many :solutions
 
+  validates :text, presence: true
+
   def has_field?(label)
     parse
 
@@ -12,24 +14,35 @@ class MadLib < ActiveRecord::Base
     @field_counts.has_key?(field.name) && @field_counts[field.name] >= field.index
   end
 
+  def fields
+    parse
+
+    @fields
+  end
+
+  def find_field(id)
+    fields[id]
+  end
+
   def resolve
     parse
 
-    field_placeholders_left = @field_placeholders.dup
-    current_field_counts = @field_counts.dup
+    fields_left = @fields.dup
 
     @text_parts.map do |text_part|
       text = text_part
 
-      unless field_placeholders_left.empty?
-        field_name = field_placeholders_left.shift
-        current_field_counts[field_name] -= 1
-        field_index = @field_counts[field_name] - current_field_counts[field_name]
-        text += yield(field_name, field_index).to_s
+      unless fields_left.empty?
+        field = fields_left.shift
+        text += yield(field).to_s
       end
 
       text
     end.join("")
+  end
+
+  def as_json(options={})
+    super(options.merge(methods: :fields))
   end
 
   private
@@ -38,17 +51,22 @@ class MadLib < ActiveRecord::Base
     return if @parsed
 
     @text_parts = []
-    @field_placeholders = []
+    @fields = []
+    @field_counts = {}
+    field_index = 0
 
     text.split(/(\{[\w,\- ]+\})/).each do |item|
       if item.start_with?("{") && item.end_with?("}")
-        @field_placeholders << item[1..-2]
+        field_index += 1
+        field_name = item[1..-2]
+        @field_counts[field_name] = 0 unless @field_counts.has_key?(field_name)
+        @field_counts[field_name] += 1
+        @fields << Field.new(@fields.length, field_name, @field_counts[field_name])
       else
         @text_parts << item
       end
     end
 
-    @field_counts = @field_placeholders.each_with_object(Hash.new(0)) {|field_name, field_counts| field_counts[field_name] += 1 }
     @parsed = true
   end
 end
