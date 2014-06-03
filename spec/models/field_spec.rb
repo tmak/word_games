@@ -23,12 +23,12 @@ describe Field do
   end
 
   it "generates a capitalized label with index at the end" do
-    field = Field.new(nil, "field, starting with bla-", 3)
+    field = Field.new(type: "field", index: 3)
 
-    expect(field.label).to eq("Field, starting with bla- (3)")
+    expect(field.label).to eq("Field (3)")
   end
 
   it "has a JSON represenation" do
-    expect(Field.new(1, "field", 3).as_json).to eq({id: 1, name: "field", index: 3, label: "Field (3)"})
+    expect(Field.new(id: 1, type: "field", index: 3).as_json).to eq({id: 1, name: "field", index: 3, label: "Field (3)"})
   end
 end
