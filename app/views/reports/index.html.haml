@@ -1,4 +1,6 @@
 .row
+  .col-sm-12
+    %h1 Usage
   %form.form-horizontal
     - @usage.each do |field_name, count|
       .form-group
@@ -7,6 +9,8 @@
           %p.form-control-static= count
 
 .row
+  .col-sm-12
+    %h1 Answers
   %form.form-horizontal
     - @answers.each do |text, count|
       .form-group
