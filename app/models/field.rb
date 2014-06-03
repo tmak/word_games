@@ -7,9 +7,9 @@ class Field
     new(attrs.merge(type: type, description: description))
   end
 
-  def self.from_label(label)
+  def self.from_label(label, attrs={})
     match = label.match(/([\w,\- ]+) \((\d+)\):?/)
-    from_name(match[1], index: match[2])
+    from_name(match[1], attrs.merge(index: match[2]))
   end
 
   def initialize(attrs)
@@ -40,8 +40,10 @@ class Field
   def as_json(options=nil)
     {
       id: id,
-      name: name,
+      type: type,
+      description: description,
       index: index,
+      name: name,
       label: label
     }
   end

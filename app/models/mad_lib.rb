@@ -1,6 +1,4 @@
 class MadLib < ActiveRecord::Base
-  FIELD_REGEX = /\{([\w,\- ]+)\}/
-
   attr_accessible :text
 
   has_many :solutions
@@ -18,10 +16,6 @@ class MadLib < ActiveRecord::Base
     parse
 
     @fields
-  end
-
-  def find_field(id)
-    fields[id]
   end
 
   def resolve

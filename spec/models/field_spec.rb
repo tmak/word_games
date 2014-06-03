@@ -29,6 +29,13 @@ describe Field do
   end
 
   it "has a JSON represenation" do
-    expect(Field.new(id: 1, type: "field", index: 3).as_json).to eq({id: 1, name: "field", index: 3, label: "Field (3)"})
+    expect(Field.new(id: 1, type: "field", description: "ending in -er", index: 3).as_json).to eq({
+      id: 1,
+      type: "field",
+      description: "ending in -er",
+      index: 3,
+      name: "field, ending in -er",
+      label: "Field, ending in -er (3)"
+    })
   end
 end

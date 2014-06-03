@@ -24,6 +24,6 @@ class Solution < ActiveRecord::Base
   alias_method :result, :resolve
 
   def as_json(options={})
-    super(options.merge(include: { answers: { methods: :field_label }}, methods: :result))
+    super(options.merge(methods: :result, include: { answers: { methods: [:field_name, :field_label] }}))
   end
 end
