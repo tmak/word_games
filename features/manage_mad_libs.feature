@@ -96,7 +96,7 @@ Feature: Manage mad_libs
   ### STOP Here unless you want bonus points! ###
   ###############################################
 
-  # @wip
+  @web
   Scenario: Create a madlib via web
     Given I am on the home page
     When I fill in the text:
@@ -121,7 +121,7 @@ Feature: Manage mad_libs
       I walked the dog. It was exciting.
       """
 
-  # @wip
+  @web
   Scenario: Create a complicated madlib via web
     Given I am on the home page
     When I fill in the text:
@@ -169,7 +169,7 @@ Feature: Manage mad_libs
       Programming is a craft. At its simplest, it comes down to getting a keyboard cat to do what you want it to do (or what your dog wants it to do). As a airline pilot, you are part listener, part advisor, part interpreter, and part clown. You try to sit shiny requirements and find a way of expressing them so that a mere post-it can do them justice. You try to jump your work so that others can sing it, and you try to engineer your coke so that others can dance on it. What's more, you try to do all this against the relentless dancing of the cup. You work bright miracles every day.
       """
 
-  # @wip
+  @web
   Scenario: web reporting
     Given I input all these madlibs again
     When I go to the reporting page

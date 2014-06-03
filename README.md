@@ -18,6 +18,8 @@ You should be able to just run `cucumber` from the console and see the
 tests run (and fail to start). Sometimes you might have to run `bundle
 exec cucumber` depending on your particular environment.
 
+`bundle exec cucumber -t ~@web; bundle exec cucumber -t @web; USE_JS_DRIVER=1 bundle exec cucumber -t @web`
+
 # Goal
 
 Make the tests pass. Good luck! :)
