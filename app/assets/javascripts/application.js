@@ -56,7 +56,7 @@ function newMadLibCreated(event, data, status, xhr) {
   $("#new_mad_lib")
     .attr("action", "/solutions")
     .unbind()
-    .on("ajax:success", newSolutionCreated).on("ajax:error", creatingSolutionFailed);
+    .on("ajax:success", newSolutionCreated);
 }
 
 function creatingNewMadLibFailed(event, xhr, status, error) {
@@ -90,19 +90,33 @@ function newSolutionCreated(event, data, status, xhr) {
           "<div class='col-sm-10'><p class='form-control-static'>" + data["result"] + "</p></div>" +
           "</div>");
   $("#new_mad_lib input[type=hidden]").remove();
-  $("#new_mad_lib input[type=submit]").parents(".form-group").remove();
+  $("#new_mad_lib input[type=submit]").before("<a id='start_again' class='btn btn-default' href='#'>Start again</a>").remove();
 
   showNotice("Your solution has been created");
 
   $("#new_mad_lib").unbind();
+  $("#start_again").one("click", startAgain);
 }
 
-function creatingSolutionFailed(event, xhr, status, error) {
-  console.log("creatingSolutionFailed", event, xhr, status, error);
+function startAgain() {
+  $("#new_mad_lib .form-group:last").prevAll(".form-group").remove();
+  $("#start_again").before("<input type='submit' class='btn btn-default' value='Create'>").remove();
+  $("#new_mad_lib .form-group:last").before("<div class='form-group'>" +
+    "<label class='col-sm-2 control-label' for='mad_lib_text'>Template:</label>" +
+    "<div class='col-sm-10'><textarea class='form-control' cols='40' id='mad_lib_text' name='mad_lib[text]' rows='10'></textarea></div>" +
+    "</div>");
+  $("#new_mad_lib")
+    .attr("action", "/mad_libs")
+    .unbind()
+    .on("ajax:success", newMadLibCreated).on("ajax:error", creatingNewMadLibFailed);
 }
 
 $(function() {
-  $(".container").prepend("<div id='notice_container'><p id='notice' class='alert alert-success'></p></div>");
-  $("#new_mad_lib").on("ajax:success", newMadLibCreated).on("ajax:error", creatingNewMadLibFailed);
+  var newMadLibForm = $("#new_mad_lib");
+
+  if (newMadLibForm.length) {
+    $(".container").prepend("<div id='notice_container'><p id='notice' class='alert alert-success'></p></div>");
+    newMadLibForm.on("ajax:success", newMadLibCreated).on("ajax:error", creatingNewMadLibFailed);
+  }
 });
 
