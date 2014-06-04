@@ -1,5 +1,5 @@
 # REQUIRED: The name of your application
-app_name: your_app_name
+app_name: word_games
 
 # REQUIRED: The system user to run your app servers as
 app_user: app
@@ -14,7 +14,7 @@ admin_email: "root@#{full_host}"
 # web_tools_password: sekret
 
 # REQUIRED: The timezone the server should be in
-timezone: US/Eastern
+timezone: GMT
 
 # REQUIRED: the domain all the instances should be associated with
 #
@@ -86,8 +86,8 @@ cloud_providers:
     # Ubuntu 12.04 Precise instance-store 64-bit: ami-eafa5883
     #
     # m1.small or m1.large or m1.xlarge
-    image_type: c1.medium
-    image_id: ami-b6089bdf
+    image_type: t1.micro
+    image_id: ami-6ac2a85a
 
     # OPTIONAL: EC2 spot instance request support.
     #
@@ -107,13 +107,18 @@ cloud_providers:
     #
     # Options include
     # New York 1
+    # Amsterdam 1
     # San Francisco 1
+    # New York 2
+    # Amsterdam 2
+    # Singapore 1
     #
     # These change often.  Check https://www.digitalocean.com/droplets/new for the most up to date options.
-    region: New York 1
+    region: Amsterdam 2
+    # Default to New York 2 since this is the only region that currently supports private networking
 
     # REQUIRED: The image name and type for creating instances.
-    image_id: Ubuntu 12.04 x64
+    image_id: Ubuntu 12.04.4 x64
     image_type: 512MB
 
   # Use an alternate cloud provider supported by fog.  This doesn't fully work
@@ -129,7 +134,7 @@ cloud_providers:
 
 # REQUIRED the cloud provider to use
 #
-cloud_provider: aws
+cloud_provider: digital_ocean
 
 # OPTIONAL: Where to store instance data.
 #
@@ -223,17 +228,17 @@ roles:
 # OPTIONAL: Automatically create security groups for each host and role
 # EC2 doesn't allow one to change what groups an instance belongs to after
 # creation, so its good to have some empty ones predefined.
-auto_security_groups: true
+auto_security_groups: false
 
 # OPTIONAL: Automatically isolate security groups for each appname/environment
 # by mangling their names to be appname_env_groupname
 # This makes it safer to have staging and production coexist on the same EC2
 # account, or even multiple apps
-isolate_security_groups: true
+isolate_security_groups: false
 
 # OPTIONAL: Prompts one to sync security group rules when the ones in amazon
 # differ from those in rubber
-prompt_for_security_group_sync: true
+prompt_for_security_group_sync: false
 
 # OPTIONAL: A list of CIDR address blocks that represent private networks for your cluster.
 # Set this to open up wide access to hosts in your network.  Consequently, setting the CIDR block
@@ -266,7 +271,7 @@ stop_on_error_cmd: "function error_exit { exit 99; }; trap error_exit ERR"
 #
 # staging_roles: "web,app,db:primary=true"
 # Auto detect staging roles
-staging_roles: "#{rubber_env.known_roles.reject {|r| r =~ /slave/ || r =~ /^db$/ }.join(',')}"
+staging_roles: "#{known_roles.reject {|r| r =~ /slave/ || r =~ /^db$/ }.join(',')}"
 
 # OPTIONAL: Lets one assign amazon elastic IPs (static IPs) to your instances
 #           You should typically set this on the role/host level rather than
