@@ -8,11 +8,11 @@ class AddFieldTypeAndFieldDescription < ActiveRecord::Migration
       answer.update_attributes(field_type: field_name_parts.first, field_description: field_name_parts.count > 1 ? field_name_parts.second : nil)
     end
 
-    remove_column :answers, :field_name, :string
+    remove_column :answers, :field_name
   end
 
   def down
-    add_column :answers, :string, :field_name
+    add_column :answers, :field_name, :string
 
     Answer.all.each do |answer|
       field_name = answer.field_type
@@ -20,7 +20,7 @@ class AddFieldTypeAndFieldDescription < ActiveRecord::Migration
       answer.update(field_name: field_name)
     end
 
-    remove_column :answers, :field_type, :string
-    remove_column :answers, :field_description, :string
+    remove_column :answers, :field_type
+    remove_column :answers, :field_description
   end
 end
