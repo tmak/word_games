@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'rails', '~>3.2.13'
 
@@ -51,8 +51,8 @@ end
 
 group :development do
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
-  gem 'rubber'
 end
+gem 'rubber'
 
 group :test do
   gem 'rspec-given'
@@ -66,3 +66,4 @@ group :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
 end
+gem 'open4'

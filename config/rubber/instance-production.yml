@@ -1,0 +1,65 @@
+---
+- !ruby/object:Rubber::Configuration::InstanceItem
+  name: word-games
+  domain: foo.com
+  roles:
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: app
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: passenger_nginx
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: collectd
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: common
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: monit
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: db
+    options:
+      primary: true
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: postgresql
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: postgresql_master
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: examples
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: graphite_server
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: graphite_web
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: haproxy
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: web
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: web_tools
+    options: {}
+  instance_id: 1782581
+  image_type: 512MB
+  image_id: Ubuntu 12.04.4 x64
+  security_groups:
+  - default
+  - web
+  - web_tools
+  external_host: 
+  external_ip: 80.240.131.162
+  internal_host: 
+  internal_ip: 80.240.131.162
+  zone: 
+  provider: digital_ocean
+  platform: linux
+  root_device_type: 
+- volumes: {}
+  static_ips: {}

@@ -16,7 +16,7 @@ GIT
       rake (>= 0.8.7)
 
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     actionmailer (3.2.13)
       actionpack (= 3.2.13)
@@ -260,6 +260,7 @@ DEPENDENCIES
   guard-rspec
   haml
   jquery-rails
+  open4
   pg
   poltergeist
   rails (~> 3.2.13)
